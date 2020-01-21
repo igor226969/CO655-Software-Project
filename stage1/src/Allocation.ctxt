@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Allocation
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Allocation\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=allocationFileName\ worldAndRides
+comment1.target=Allocation(java.lang.String,\ WorldAndRides)
+numComments=2
