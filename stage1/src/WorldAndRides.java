@@ -12,12 +12,7 @@ public class WorldAndRides
 
 {
     public WorldAndRides(String worldAndRidesFileName) throws FileFormatException {
-        //TODO read the world information from worldAndRidesFileName
-        //and store the information in this class
         
-        //TODO read the information about the requested rides and store the
-        //information in this class
     }
     
-    //TODO define appropriate methods for this class.
 }
