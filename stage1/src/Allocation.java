@@ -9,12 +9,12 @@ import java.io.*;
  */
 public class Allocation    
 {
-    public ArrayList<CarAllocation> allocatedRides = new ArrayList<CarAllocation>();
+    private ArrayList<CarAllocation> allocatedRides = new ArrayList<CarAllocation>();
     
     public Allocation(String allocationFileName, WorldAndRides worldAndRides) throws FileFormatException {
         try{
             Scanner sc = new Scanner(new BufferedReader(new FileReader(allocationFileName)));
-            while(sc.nextLine() != null){
+            while(sc.hasNextLine()){
                 ArrayList<Integer> rideNumbers = new ArrayList<Integer>();
                 String[] line = sc.nextLine().split(" ");
                 for(int i = 1; i < line.length; i++){
