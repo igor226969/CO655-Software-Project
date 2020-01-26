@@ -27,4 +27,21 @@ public class Allocation
             System.out.println("file loading error");
         }
     }
+    
+    public ArrayList getAllocatedRides()
+    {
+        return allocatedRides;
+    }
+    
+    public ArrayList getCarAllocation(int index)
+    {
+        CarAllocation car = allocatedRides.get(index);
+        return car.getRideNumbers();
+    }
+    
+    public int getNumberOfRides(int index)
+    {
+        CarAllocation car = allocatedRides.get(index);
+        return car.getRideNumbers().size();
+    }
 }
