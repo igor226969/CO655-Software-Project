@@ -63,8 +63,8 @@ public class Simulation
                    {    
                        int distanceToStart = calculateDistance(currentLocationX,currentLocationY,sx,sy);
                        currentSteps += distanceToStart;
-                       if(currentSteps <= earliestStart && currentSteps <= steps){
-                           int distance = calculateDistance(sx,sy,ex,ey);
+                       int distance = calculateDistance(sx,sy,ex,ey);
+                       if(currentSteps <= earliestStart && currentSteps + distance <= steps){
                            currentSteps = earliestStart;
                            int tripFinish = distance + currentSteps;
                            if(tripFinish <= latestFinish && tripFinish <= steps){
@@ -77,8 +77,8 @@ public class Simulation
                                
                            }
                        }
-                       else if(currentSteps > earliestStart && currentSteps <= steps){
-                           int distance = calculateDistance(sx,sy,ex,ey);
+                       else if(currentSteps > earliestStart && currentSteps + distance <= steps){
+                           distance = calculateDistance(sx,sy,ex,ey);
                            int tripFinish = distance + currentSteps;
                            if(tripFinish <= latestFinish && tripFinish <= steps){
                                distance = calculateDistance(sx,sy,ex,ey);
@@ -91,8 +91,8 @@ public class Simulation
                        }
                    }
                    else if(currentLocationX == sx && currentLocationY == sy){
-                       if(currentSteps <= earliestStart && currentSteps <= steps){
-                           int distance = calculateDistance(sx,sy,ex,ey);
+                       int distance = calculateDistance(sx,sy,ex,ey);
+                       if(currentSteps <= earliestStart && currentSteps + distance <= steps){
                            currentSteps = earliestStart;
                            int tripFinish = distance + currentSteps;
                            if(tripFinish <= latestFinish && tripFinish <= steps){
@@ -105,8 +105,7 @@ public class Simulation
                                
                            }
                        }
-                       else if(currentSteps > earliestStart && currentSteps <= steps){
-                           int distance = calculateDistance(sx,sy,ex,ey);
+                       else if(currentSteps > earliestStart && currentSteps + distance <= steps){
                            int tripFinish = distance + currentSteps;
                            if(tripFinish <= latestFinish && tripFinish <= steps){
                                distance = calculateDistance(sx,sy,ex,ey);
