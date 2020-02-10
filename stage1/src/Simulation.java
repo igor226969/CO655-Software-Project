@@ -59,7 +59,7 @@ public class Simulation
                    int latestFinish = allRideInformation[rideNo][5];
                  
                    
-                   if(currentLocationX != sx || currentLocationY != sy)
+                   if((currentLocationX != sx || currentLocationY != sy) && currentSteps <= steps)
                    {    
                        int distanceToStart = calculateDistance(currentLocationX,currentLocationY,sx,sy);
                        currentSteps += distanceToStart;
@@ -90,7 +90,7 @@ public class Simulation
                            }
                        }
                    }
-                   else if(currentLocationX == sx && currentLocationY == sy){
+                   else if(currentLocationX == sx && currentLocationY == sy && currentSteps <= steps){
                        int distance = calculateDistance(sx,sy,ex,ey);
                        if(currentSteps <= earliestStart && currentSteps + distance <= steps){
                            currentSteps = earliestStart;
