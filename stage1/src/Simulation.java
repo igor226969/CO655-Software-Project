@@ -27,7 +27,6 @@ public class Simulation
    }
    
    public void run() {
-       
        try {
            WorldAndRides worldAndRides = new WorldAndRides(worldAndRidesFileName);
            Allocation allocation = new Allocation(allocationFileName, worldAndRides);
@@ -57,63 +56,75 @@ public class Simulation
                    
                    int earliestStart = allRideInformation[rideNo][4];
                    int latestFinish = allRideInformation[rideNo][5];
-                 
                    
-                   if((currentLocationX != sx || currentLocationY != sy) && currentSteps <= steps)
-                   {    
-                       int distanceToStart = calculateDistance(currentLocationX,currentLocationY,sx,sy);
+                   int tripDistance = 0;
+                   int distanceToStart = 0;
+                   
+                   if(currentLocationX != sx || currentLocationY != sy){
+                       distanceToStart = calculateDistance(currentLocationX,currentLocationY,sx,sy);
+                       currentLocationX = sx;
+                       currentLocationY = sy;
                        currentSteps += distanceToStart;
-                       int distance = calculateDistance(sx,sy,ex,ey);
-                       if(currentSteps <= earliestStart && currentSteps + distance <= steps){
+                       if(currentSteps <= earliestStart && currentSteps < steps){
                            currentSteps = earliestStart;
-                           int tripFinish = distance + currentSteps;
-                           if(tripFinish <= latestFinish && tripFinish <= steps){
-                               distance = calculateDistance(sx,sy,ex,ey);
-                               score += bonus;
-                               score += distance;
+                           tripDistance = calculateDistance(currentLocationX,currentLocationY,ex,ey);
+                           if(currentSteps + tripDistance <= latestFinish && currentSteps + tripDistance < steps){
                                currentLocationX = ex;
                                currentLocationY = ey;
-                               currentSteps = tripFinish;
-                               
+                               currentSteps += tripDistance;
+                               score += tripDistance;
+                               score += bonus;
+                           }
+                           else if(currentSteps + tripDistance > latestFinish && currentSteps + tripDistance < steps){
+                               currentLocationX = ex;
+                               currentLocationY = ey;
+                               currentSteps += tripDistance;
                            }
                        }
-                       else if(currentSteps > earliestStart && currentSteps + distance <= steps){
-                           distance = calculateDistance(sx,sy,ex,ey);
-                           int tripFinish = distance + currentSteps;
-                           if(tripFinish <= latestFinish && tripFinish <= steps){
-                               distance = calculateDistance(sx,sy,ex,ey);
-                               score += distance;
+                       else if(currentSteps >= earliestStart && currentSteps < steps){
+                           tripDistance = calculateDistance(currentLocationX,currentLocationY,ex,ey);
+                           if(currentSteps + tripDistance <= latestFinish && currentSteps + tripDistance < steps){
                                currentLocationX = ex;
                                currentLocationY = ey;
-                               currentSteps = tripFinish;
-                               
+                               currentSteps += tripDistance;
+                               score += tripDistance;
+                           }
+                           else if(currentSteps + tripDistance > latestFinish && currentSteps + tripDistance < steps){
+                               currentLocationX = ex;
+                               currentLocationY = ey;
+                               currentSteps += tripDistance;
                            }
                        }
                    }
-                   else if(currentLocationX == sx && currentLocationY == sy && currentSteps <= steps){
-                       int distance = calculateDistance(sx,sy,ex,ey);
-                       if(currentSteps <= earliestStart && currentSteps + distance <= steps){
+                   else if(currentLocationX == sx && currentLocationY == sy){
+                       if(currentSteps <= earliestStart && currentSteps < steps){
                            currentSteps = earliestStart;
-                           int tripFinish = distance + currentSteps;
-                           if(tripFinish <= latestFinish && tripFinish <= steps){
-                               distance = calculateDistance(sx,sy,ex,ey);
-                               score += bonus;
-                               score += distance;
+                           tripDistance = calculateDistance(currentLocationX,currentLocationY,ex,ey);
+                           if(currentSteps + tripDistance <= latestFinish && currentSteps + tripDistance < steps){
                                currentLocationX = ex;
                                currentLocationY = ey;
-                               currentSteps = tripFinish;
-                               
+                               currentSteps += tripDistance;
+                               score += tripDistance;
+                               score += bonus;
+                           }
+                           else if(currentSteps + tripDistance > latestFinish && currentSteps + tripDistance < steps){
+                               currentLocationX = ex;
+                               currentLocationY = ey;
+                               currentSteps += tripDistance;
                            }
                        }
-                       else if(currentSteps > earliestStart && currentSteps + distance <= steps){
-                           int tripFinish = distance + currentSteps;
-                           if(tripFinish <= latestFinish && tripFinish <= steps){
-                               distance = calculateDistance(sx,sy,ex,ey);
-                               score += distance;
+                       else if(currentSteps > earliestStart && currentSteps < steps){
+                           tripDistance = calculateDistance(currentLocationX,currentLocationY,ex,ey);
+                           if(currentSteps + tripDistance <= latestFinish && currentSteps + tripDistance < steps){
                                currentLocationX = ex;
                                currentLocationY = ey;
-                               currentSteps = tripFinish;
-                               
+                               currentSteps += tripDistance;
+                               score += tripDistance;
+                           }
+                           else if(currentSteps + tripDistance > latestFinish && currentSteps + tripDistance < steps){
+                               currentLocationX = ex;
+                               currentLocationY = ey;
+                               currentSteps += tripDistance;
                            }
                        }
                    }

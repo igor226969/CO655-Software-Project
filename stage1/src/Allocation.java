@@ -24,7 +24,7 @@ public class Allocation
             }
         }
         catch(IOException ex){
-            System.out.println ("ERROR "+ ex);
+            System.out.println("file loading error");
         }
     }
     
