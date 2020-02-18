@@ -41,7 +41,7 @@ public class WorldAndRides
                     }
                 }
                 else{
-                    throw new FileFormatException("X or Y coordinates out of bounds, Invalid file format");
+                    throw new FileFormatException("X or Y coordinates out of bounds, Invalid file format.");
                 }
             }
             sc.close();

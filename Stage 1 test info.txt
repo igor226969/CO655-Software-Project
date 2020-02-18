@@ -1,0 +1,4 @@
+Test1: Coordinates out of bounds (greater than limit)
+Test2: Coordinates out of bounds (less than 0)
+Test3: Duplicate ride numbers
+Test4: Amount of rides not equall to number specifying amount of rides

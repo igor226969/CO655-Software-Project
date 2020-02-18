@@ -24,13 +24,13 @@ public class Allocation
                             rideNumbers.add(Integer.parseInt(line[i]));
                         }
                         else{
-                            throw new FileFormatException("Duplicate rides found, Invalid file format");
+                            throw new FileFormatException("Duplicate rides found, Invalid Allocation file format.");
                         }
                     }
                     allocatedRides.add(new CarAllocation(rideNumbers));
                 }
                 else{
-                    throw new FileFormatException("Invalid file format");
+                    throw new FileFormatException("Invalid Allocation file format.");
                 }
             }
             sc.close();
