@@ -7,8 +7,7 @@
  */
 public class FileFormatException extends Exception
 {
-    public String description() {
-        //returns a message describing what is the problem with the file instead of null..
-        return null;
+    public FileFormatException(String message) {
+        super(message);
     }
 }

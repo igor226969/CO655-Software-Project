@@ -131,8 +131,8 @@ public class Simulation
                }
            }
            System.out.println(score);
-       } catch (FileFormatException e) {
-           System.out.println ("ERROR "+ e.description());
+       } catch (Exception ex) {
+           ex.printStackTrace();
        }
    }
    

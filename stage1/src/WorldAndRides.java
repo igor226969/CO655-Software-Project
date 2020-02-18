@@ -34,14 +34,33 @@ public class WorldAndRides
             for(int x = 0; x < rides; x++)
             {
                 line = sc.nextLine().split(" ");
-                for(int y = 0; y < 6; y++)
-                {
-                    rideInformation[x][y] = Integer.parseInt(line[y]);
+                if(verify(line)){
+                    for(int y = 0; y < 6; y++)
+                    {
+                        rideInformation[x][y] = Integer.parseInt(line[y]);
+                    }
+                }
+                else{
+                    throw new FileFormatException("X or Y coordinates out of bounds, Invalid file format");
                 }
             }
+            sc.close();
         }
         catch(IOException ex){
-            System.out.println("file loading error" + ex);
+            ex.printStackTrace();
+        }
+    }
+    
+    public boolean verify(String[] line)
+    {
+        if(Integer.parseInt(line[0]) > getRows() || Integer.parseInt(line[1]) > getColumns() || Integer.parseInt(line[2]) > getRows() || Integer.parseInt(line[3]) > getColumns()){
+            return false;
+        }
+        else if(Integer.parseInt(line[0]) < 0 || Integer.parseInt(line[1]) < 0 || Integer.parseInt(line[3]) < 0 || Integer.parseInt(line[4]) < 0){
+            return false;
+        }
+        else{
+            return true;
         }
     }
     

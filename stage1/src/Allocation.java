@@ -10,6 +10,7 @@ import java.io.*;
 public class Allocation    
 {
     private ArrayList<CarAllocation> allocatedRides = new ArrayList<CarAllocation>();
+    Set<Integer> set = new HashSet<Integer>();
     
     public Allocation(String allocationFileName, WorldAndRides worldAndRides) throws FileFormatException {
         try{
@@ -17,14 +18,25 @@ public class Allocation
             while(sc.hasNextLine()){
                 ArrayList<Integer> rideNumbers = new ArrayList<Integer>();
                 String[] line = sc.nextLine().split(" ");
-                for(int i = 1; i < line.length; i++){
-                    rideNumbers.add(Integer.parseInt(line[i]));
+                if(Integer.parseInt(line[0]) == line.length - 1){
+                    for(int i = 1; i < line.length; i++){
+                        if(set.add(Integer.parseInt(line[i]))){
+                            rideNumbers.add(Integer.parseInt(line[i]));
+                        }
+                        else{
+                            throw new FileFormatException("Duplicate rides found, Invalid file format");
+                        }
+                    }
+                    allocatedRides.add(new CarAllocation(rideNumbers));
                 }
-                allocatedRides.add(new CarAllocation(rideNumbers));
+                else{
+                    throw new FileFormatException("Invalid file format");
+                }
             }
+            sc.close();
         }
         catch(IOException ex){
-            System.out.println("file loading error");
+            ex.printStackTrace();
         }
     }
     
