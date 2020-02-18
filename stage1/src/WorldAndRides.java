@@ -22,6 +22,7 @@ public class WorldAndRides
             Scanner sc = new Scanner(new BufferedReader(new FileReader(worldAndRidesFileName)));
             String[] line = sc.nextLine().split(" ");
             
+            //creates variables about world and rides
             rows = Integer.parseInt(line[0]);
             columns = Integer.parseInt(line[1]);
             vehicles = Integer.parseInt(line[2]);
@@ -34,9 +35,11 @@ public class WorldAndRides
             for(int x = 0; x < rides; x++)
             {
                 line = sc.nextLine().split(" ");
+                //checks the foramat and throws exception
                 if(verify(line)){
                     for(int y = 0; y < 6; y++)
                     {
+                        //rides stored in nested array
                         rideInformation[x][y] = Integer.parseInt(line[y]);
                     }
                 }
@@ -51,6 +54,7 @@ public class WorldAndRides
         }
     }
     
+    //verifies the x and y coordinates
     public boolean verify(String[] line)
     {
         if(Integer.parseInt(line[0]) > getRows() || Integer.parseInt(line[1]) > getColumns() || Integer.parseInt(line[2]) > getRows() || Integer.parseInt(line[3]) > getColumns()){
@@ -64,6 +68,7 @@ public class WorldAndRides
         }
     }
     
+    //accessor mehtods
     public int[][] getRideInfo()
     {
         return rideInformation;
