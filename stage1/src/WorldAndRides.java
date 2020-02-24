@@ -2,9 +2,8 @@ import java.awt.*;
 import java.util.*;
 import java.io.*;
 /**
- * Write a description of class WorldAndRides here.
  *
- * @author (your name)
+ * @author Igor Drobnica
  * @version (a version number or a date)
  */
 public class WorldAndRides

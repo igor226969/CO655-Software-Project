@@ -2,9 +2,8 @@ import java.awt.*;
 import java.util.*;
 import java.io.*;
 /**
- * Write a description of class WorldAndRides here.
  *
- * @author (your name)
+ * @author Igor Drobnica
  * @version (a version number or a date)
  */
 public class WorldAndRides
@@ -22,6 +21,7 @@ public class WorldAndRides
             Scanner sc = new Scanner(new BufferedReader(new FileReader(worldAndRidesFileName)));
             String[] line = sc.nextLine().split(" ");
             
+            //creates variables about world and rides
             rows = Integer.parseInt(line[0]);
             columns = Integer.parseInt(line[1]);
             vehicles = Integer.parseInt(line[2]);
@@ -34,17 +34,40 @@ public class WorldAndRides
             for(int x = 0; x < rides; x++)
             {
                 line = sc.nextLine().split(" ");
-                for(int y = 0; y < 6; y++)
-                {
-                    rideInformation[x][y] = Integer.parseInt(line[y]);
+                //checks the foramat and throws exception
+                if(verify(line)){
+                    for(int y = 0; y < 6; y++)
+                    {
+                        //rides stored in nested array
+                        rideInformation[x][y] = Integer.parseInt(line[y]);
+                    }
+                }
+                else{
+                    throw new FileFormatException("X or Y coordinates out of bounds, Invalid file format.");
                 }
             }
+            sc.close();
         }
         catch(IOException ex){
-            System.out.println("file loading error" + ex);
+            ex.printStackTrace();
         }
     }
     
+    //verifies the x and y coordinates
+    public boolean verify(String[] line)
+    {
+        if(Integer.parseInt(line[0]) > getRows() || Integer.parseInt(line[1]) > getColumns() || Integer.parseInt(line[2]) > getRows() || Integer.parseInt(line[3]) > getColumns()){
+            return false;
+        }
+        else if(Integer.parseInt(line[0]) < 0 || Integer.parseInt(line[1]) < 0 || Integer.parseInt(line[3]) < 0 || Integer.parseInt(line[4]) < 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    //accessor mehtods
     public int[][] getRideInfo()
     {
         return rideInformation;
