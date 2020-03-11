@@ -34,7 +34,7 @@ public class WorldAndRides
             for(int x = 0; x < rides; x++)
             {
                 line = sc.nextLine().split(" ");
-                rideInformation[x][6] = x+1;
+                rideInformation[x][6] = x;
                 //checks the foramat and throws exception
                 if(verify(line)){
                     for(int y = 0; y < 6; y++)
