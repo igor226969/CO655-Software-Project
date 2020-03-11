@@ -9,60 +9,31 @@ import java.io.*;
  */
 public class Allocation    
 {
-    private ArrayList<CarAllocation> allocatedRides = new ArrayList<CarAllocation>();
-    Set<Integer> set = new HashSet<Integer>();
+    private int[][] rideInformation;
+    private ArrayList<Integer> carAllocation = new ArrayList<Integer>();
+    private int vehicles;
+    private int rides;
     
-    public Allocation(String allocationFileName, WorldAndRides worldAndRides) throws FileFormatException {
+    public Allocation(String worldAndRides) {
         try{
-            //scanner initiated
-            Scanner sc = new Scanner(new BufferedReader(new FileReader(allocationFileName)));
-            while(sc.hasNextLine()){
-                //array list that stores car number created
-                ArrayList<Integer> rideNumbers = new ArrayList<Integer>();
-                //array that stoes scanned line created
-                String[] line = sc.nextLine().split(" ");
-                //chbecks if there are the amount of rides specified or throws exception
-                if(Integer.parseInt(line[0]) == line.length - 1){
-                    //loops through array and extracts 
-                    for(int i = 1; i < line.length; i++){
-                        //checks for duplicate ride nubers and throws exception
-                        if(set.add(Integer.parseInt(line[i]))){
-                            rideNumbers.add(Integer.parseInt(line[i]));
-                        }
-                        else{
-                            throw new FileFormatException("Duplicate rides found, Invalid Allocation file format.");
-                        }
-                    }
-                    //creates object for car that stores car rides and adds it to an array list
-                    allocatedRides.add(new CarAllocation(rideNumbers));
-                }
-                else{
-                    throw new FileFormatException("Invalid Allocation file format.");
-                }
+            WorldAndRides war  = new WorldAndRides(worldAndRides);
+            vehicles = war.getVehicles();
+            rideInformation = war.getRideInfo();
+            rides = war.getRides();
+            for(int x = 0; x < rides; x++){
+                carAllocation.add(rideInformation[x][6]);
             }
-            sc.close();
         }
-        catch(IOException ex){
+        catch(Exception ex){
             ex.printStackTrace();
+        }   
+    }
+    
+    public void printAllocation()
+    {
+        System.out.print(carAllocation.size() + " ");
+        for(int no: carAllocation){
+            System.out.print(no + " ");
         }
-    }
-    
-    //accessor methods
-    
-    public ArrayList getAllocatedRides()
-    {
-        return allocatedRides;
-    }
-    
-    public ArrayList getCarAllocation(int index)
-    {
-        CarAllocation car = allocatedRides.get(index);
-        return car.getRideNumbers();
-    }
-    
-    public int getNumberOfRides(int index)
-    {
-        CarAllocation car = allocatedRides.get(index);
-        return car.getRideNumbers().size();
     }
 }

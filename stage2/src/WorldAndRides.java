@@ -29,11 +29,12 @@ public class WorldAndRides
             bonus = Integer.parseInt(line[4]);
             steps = Integer.parseInt(line[5]);
             
-            rideInformation = new int[rides][6];
+            rideInformation = new int[rides][7];
             
             for(int x = 0; x < rides; x++)
             {
                 line = sc.nextLine().split(" ");
+                rideInformation[x][6] = x+1;
                 //checks the foramat and throws exception
                 if(verify(line)){
                     for(int y = 0; y < 6; y++)
@@ -47,12 +48,46 @@ public class WorldAndRides
                 }
             }
             sc.close();
+            QuickSort(rideInformation,0,rides-1);
         }
         catch(IOException ex){
             ex.printStackTrace();
         }
     }
     
+    private static void QuickSort(int[][] a, int l, int r) {
+        int i;
+        if (r > l){
+            i = partition(a, l, r);
+            QuickSort(a, l, i-1);
+            QuickSort(a, i+1, r);
+        }
+    }
+
+    private static int partition(int[][] a, int l, int r) {
+        int v = a[r][5];
+        int i = l;
+        int j = r;
+        int[] temp;
+        while (i < j){
+            while (a[i][5] < v){
+                i = i + 1;
+            }
+            while ((i < j) && (a[j][5] >= v)){
+                j = j - 1;
+            }
+            temp = a[i];
+            if (i < j){
+                a[i] = a[j];
+                a[j] = temp;
+            }else{
+                a[i] = a[r];
+                a[r] = temp;
+            }
+        }
+        return i;
+    }
+
     //verifies the x and y coordinates
     public boolean verify(String[] line)
     {
