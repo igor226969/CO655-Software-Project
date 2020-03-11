@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=CarAllocation
+comment1.params=rideNum
+comment1.target=CarAllocation(java.util.ArrayList)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ CarAllocation\r\n
+comment2.params=
+comment2.target=java.util.ArrayList\ getRideNumbers()
+comment3.params=i
+comment3.target=void\ addRideNumber(int)
+comment4.params=
+comment4.target=void\ printRideNumbers()
+numComments=5
