@@ -39,7 +39,7 @@ public class Allocation
                 int latestFinish = rideInformation[x][5];
                 for(int y = 0; y < vehicles; y++){
                     CarAllocation car = carAllocation.get(y);
-
+                    currentSteps = car.getSteps();
                     int currentX = car.getX();
                     int currentY = car.getY();
                     
@@ -51,7 +51,7 @@ public class Allocation
                 car.addRideNumber(rideInformation[x][6]);
                 car.setX(ex);
                 car.setY(ey);
-                currentSteps = stepsForRide.get(carNumber);
+                car.setSteps(stepsForRide.get(carNumber));
                 highestPoints.clear();
                 stepsForRide.clear();
             }
@@ -85,7 +85,7 @@ public class Allocation
             car1.addRideNumber(rideInformation[x][6]);
             car1.setX(ex);
             car1.setY(ey);
-            currentSteps = stepsForRide.get(carNumber);
+            car1.setSteps(stepsForRide.get(carNumber));
             highestPoints.clear();
             stepsForRide.clear();
         }

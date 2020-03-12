@@ -5,6 +5,7 @@ public class CarAllocation
     public ArrayList<Integer> rideNumbers = new ArrayList<Integer>();
     public int positionX;
     public int positionY;
+    public int steps;
     
     /**
      * Constructor for objects of class CarAllocation
@@ -12,11 +13,22 @@ public class CarAllocation
     public CarAllocation(ArrayList rideNum)
     {
         rideNumbers = rideNum;
+        steps = 0;
     }
 
     public ArrayList getRideNumbers()
     {
         return rideNumbers;
+    }
+    
+    public int getSteps()
+    {
+        return steps;
+    }
+    
+    public void setSteps(int i)
+    {
+        steps = i;
     }
     
     public int getX()
