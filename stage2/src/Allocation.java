@@ -60,37 +60,40 @@ public class Allocation
             ex.printStackTrace();
         }   
     }
-  
+    
     public void allocateFirstRide()
     {
         for(int x = 0; x < vehicles; x++){
             ArrayList<Integer> rideNumbers = new ArrayList<Integer>();
             rideNumbers.add(rideInformation[x][6]);
-            carAllocation.add(new CarAllocation(rideNumbers));
-            CarAllocation car = carAllocation.get(x);
-            int distance = 0;
             int sx = rideInformation[x][0];
             int sy = rideInformation[x][1];
             int ex = rideInformation[x][2];
             int ey = rideInformation[x][3];
             int earliestStart = rideInformation[x][4];
-            int latestFinish = rideInformation[x][5];
-            
-            for(int y = 0; y < rides; y++){
-                int score = calculatePoints(0,0,sx,sy,ex,ey,earliestStart,latestFinish);
-                highestPoints.add(score);
+            int steps1 = 0;
+            carAllocation.add(new CarAllocation(rideNumbers));
+            CarAllocation car = carAllocation.get(x);
+            if(sx == 0 && sy == 0){
+                car.setSteps(calculateDistance(0,0,ex,ey));
             }
-            int carNumber = getHighestPointRide();
-            CarAllocation car1 = carAllocation.get(carNumber);
-            car1.addRideNumber(rideInformation[x][6]);
-            car1.setX(ex);
-            car1.setY(ey);
-            car1.setSteps(stepsForRide.get(carNumber));
-            highestPoints.clear();
-            stepsForRide.clear();
+            else if(sx != 0 || sy != 0){
+                steps1 += calculateDistance(0,0,sx,sy);
+                if(steps1 < earliestStart)
+                {
+                    steps1 = earliestStart;
+                    car.setSteps(steps1 + calculateDistance(sx,sy,ex,ey));
+                }
+                else{
+                    car.setSteps(steps1 + calculateDistance(sx,sy,ex,ey));
+                }
+            }
+            car.setX(ex);
+            car.setY(ey);
         }
     }
-    
+
+
     public int getHighestPointRide()
     {
         int max = 0;
