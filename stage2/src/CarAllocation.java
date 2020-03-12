@@ -21,6 +21,11 @@ public class CarAllocation
         return rideNumbers;
     }
     
+    public void delete()
+    {
+        rideNumbers.remove(rideNumbers.size() - 1);
+    }
+    
     public int getSteps()
     {
         return steps;
@@ -28,7 +33,7 @@ public class CarAllocation
     
     public void setSteps(int i)
     {
-        steps = i;
+        steps += i;
     }
     
     public int getX()

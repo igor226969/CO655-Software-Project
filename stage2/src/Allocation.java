@@ -12,6 +12,8 @@ public class Allocation
 {
     private ArrayList<Integer> highestPoints = new ArrayList<Integer>();
     private ArrayList<Integer> stepsForRide = new ArrayList<Integer>();
+    private ArrayList<Integer> highestPointsTemp = new ArrayList<Integer>();
+    private ArrayList<Integer> stepsForRideTemp = new ArrayList<Integer>();
     private int[][] rideInformation;
     private ArrayList<CarAllocation> carAllocation = new ArrayList<CarAllocation>();
     private int vehicles;
@@ -19,6 +21,10 @@ public class Allocation
     private int bonus;
     private int steps;
     private int currentSteps;
+    private int tempScore;
+    private int score;
+    private int tempCarNumber;
+    private int carNumber;
     
     public Allocation(String worldAndRides) {
         try{
@@ -43,15 +49,30 @@ public class Allocation
                     int currentX = car.getX();
                     int currentY = car.getY();
                     
-                    int score = calculatePoints(currentX,currentY,sx,sy,ex,ey,earliestStart,latestFinish);
+                    score = calculatePoints(currentX,currentY,sx,sy,ex,ey,earliestStart,latestFinish);
                     highestPoints.add(score);
+                    tempScore = score;
                 }
-                int carNumber = getHighestPointRide();
+                carNumber = getHighestPointRide();
+                // for(int preScore: highestPointsTemp){
+                    // if(preScore + score > tempScore){
+                        // CarAllocation car = carAllocation.get(carNumber);
+                        // CarAllocation preCar = carAllocation.get(tempCarNumber);
+                        // preCar.delete();
+                        // preCar.addRideNumber(rideInformation[x - 1][6]);
+                        // car.addRideNumber(rideInformation[x][6]);
+                        // preCar.setSteps(stepsForRide.get(tempCarNumber)
+                        // car.setX(ex);
+                        // car.setY(ey);
+                    // }
+                // }
                 CarAllocation car = carAllocation.get(carNumber);
                 car.addRideNumber(rideInformation[x][6]);
                 car.setX(ex);
                 car.setY(ey);
                 car.setSteps(stepsForRide.get(carNumber));
+                highestPointsTemp = highestPoints;
+                stepsForRideTemp = stepsForRide;
                 highestPoints.clear();
                 stepsForRide.clear();
             }
