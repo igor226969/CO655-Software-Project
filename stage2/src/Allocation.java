@@ -51,7 +51,7 @@ public class Allocation
                     
                     score = calculatePoints(currentX,currentY,sx,sy,ex,ey,earliestStart,latestFinish);
                     highestPoints.add(score);
-                    tempScore = score;
+                    
                 }
                 carNumber = getHighestPointRide();
                 // for(int preScore: highestPointsTemp){
