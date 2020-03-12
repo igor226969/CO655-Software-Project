@@ -33,7 +33,7 @@ public class CarAllocation
     
     public void setSteps(int i)
     {
-        steps += i;
+        steps = i;
     }
     
     public int getX()
