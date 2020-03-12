@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.util.*;
 import java.io.*;
@@ -29,7 +30,6 @@ public class Allocation
             rides = war.getRides();
             ArrayList<Integer> rideNumbers = new ArrayList<Integer>();
             allocateFirstRide();
-            currentSteps = 0;
             for(int x = vehicles; x < rides; x++){
                 int sx = rideInformation[x][0];
                 int sy = rideInformation[x][1];
@@ -37,10 +37,9 @@ public class Allocation
                 int ey = rideInformation[x][3];
                 int earliestStart = rideInformation[x][4];
                 int latestFinish = rideInformation[x][5];
-                
                 for(int y = 0; y < vehicles; y++){
                     CarAllocation car = carAllocation.get(y);
-                    
+
                     int currentX = car.getX();
                     int currentY = car.getY();
                     
@@ -53,6 +52,8 @@ public class Allocation
                 car.setX(ex);
                 car.setY(ey);
                 currentSteps = stepsForRide.get(carNumber);
+                highestPoints.clear();
+                stepsForRide.clear();
             }
         }
         catch(Exception ex){
@@ -97,9 +98,17 @@ public class Allocation
     
     public int getHighestPointRide()
     {
-       int maxPoints = Collections.max(highestPoints);
-       return highestPoints.indexOf(maxPoints);
+        int max = 0;
+        int index = 0;
+        for(int i = 0; i < highestPoints.size(); i++){
+            if(highestPoints.get(i) > max){
+                max = highestPoints.get(i);
+                index = i;
+            }
+        }
+        return index;
     }
+    
     
     public int calculateDistance(int sx, int sy, int ex, int ey)
     {
