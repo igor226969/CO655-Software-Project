@@ -9,43 +9,50 @@ import java.io.*;
  */
 public class Allocation    
 {
+    private ArrayList<Integer> highestPoints = new ArrayList<Integer>();
+    private ArrayList<Integer> stepsForRide = new ArrayList<Integer>();
     private int[][] rideInformation;
     private ArrayList<CarAllocation> carAllocation = new ArrayList<CarAllocation>();
     private int vehicles;
     private int rides;
+    private int bonus;
+    private int steps;
+    private int currentSteps;
     
     public Allocation(String worldAndRides) {
         try{
             WorldAndRides war  = new WorldAndRides(worldAndRides);
             vehicles = war.getVehicles();
+            bonus = war.getBonus();
+            steps = war.getSteps();
             rideInformation = war.getRideInfo();
             rides = war.getRides();
             ArrayList<Integer> rideNumbers = new ArrayList<Integer>();
             allocateFirstRide();
+            currentSteps = 0;
             for(int x = vehicles; x < rides; x++){
-                int y = 0;
-                int positionX = rideInformation[y][2];
-                int positionY = rideInformation[y][3];
-                
                 int sx = rideInformation[x][0];
-                //sy = start y coordinate
                 int sy = rideInformation[x][1];
-                   
-               //ex = end x coordinate
                 int ex = rideInformation[x][2];
                 int ey = rideInformation[x][3];
-               
                 int earliestStart = rideInformation[x][4];
                 int latestFinish = rideInformation[x][5];
-               
-                int tripDistance = 0;
-                int distanceToStart = 0;
-                   
                 
-                CarAllocation car = carAllocation.get(0);
+                for(int y = 0; y < vehicles; y++){
+                    CarAllocation car = carAllocation.get(y);
+                    
+                    int currentX = car.getX();
+                    int currentY = car.getY();
+                    
+                    int score = calculatePoints(currentX,currentY,sx,sy,ex,ey,earliestStart,latestFinish);
+                    highestPoints.add(score);
+                }
+                int carNumber = getHighestPointRide();
+                CarAllocation car = carAllocation.get(carNumber);
                 car.addRideNumber(rideInformation[x][6]);
-                
-                y += 1;
+                car.setX(ex);
+                car.setY(ey);
+                currentSteps = stepsForRide.get(carNumber);
             }
         }
         catch(Exception ex){
@@ -59,7 +66,39 @@ public class Allocation
             ArrayList<Integer> rideNumbers = new ArrayList<Integer>();
             rideNumbers.add(rideInformation[x][6]);
             carAllocation.add(new CarAllocation(rideNumbers));
+            CarAllocation car = carAllocation.get(x);
+            int distance = 0;
+            int sx = rideInformation[x][0];
+            int sy = rideInformation[x][1];
+            int ex = rideInformation[x][2];
+            int ey = rideInformation[x][3];
+            int earliestStart = rideInformation[x][4];
+            int latestFinish = rideInformation[x][5];
+            
+            if(sx == 0 && sy == 0){
+                currentSteps += earliestStart;
+                currentSteps += calculateDistance(0,0,ex,ey);
+            }
+            else if(sx != 0 || sy != 0){
+                distance = calculateDistance(0,0,sx,sy);
+                currentSteps += distance;
+                if(currentSteps < earliestStart){
+                    currentSteps = earliestStart;
+                    currentSteps += calculateDistance(sx,sy,ex,ey);
+                }
+                else{
+                    currentSteps += calculateDistance(sx,sy,ex,ey);
+                }
+            }
+            car.setX(ex);
+            car.setY(ey);
         }
+    }
+    
+    public int getHighestPointRide()
+    {
+       int maxPoints = Collections.max(highestPoints);
+       return highestPoints.indexOf(maxPoints);
     }
     
     public int calculateDistance(int sx, int sy, int ex, int ey)
@@ -67,6 +106,68 @@ public class Allocation
        int distance = (Math.abs(ex - sx)) + (Math.abs(ey - sy));
        return distance;
     } 
+    
+    public int calculatePoints(int currentX,int currentY, int sx, int sy,int ex,int ey,int earliestStart,int latestFinish)
+    {
+        int cSteps = currentSteps;
+        int score = 0;
+        int tripDistance = 0;
+        int distanceToStart = 0;
+        if(currentX != sx || currentY != sy){
+            distanceToStart = calculateDistance(currentX,currentY,sx,sy);
+            currentX = sx;
+            currentY = sy;
+            cSteps = distanceToStart;
+            if(cSteps <= earliestStart && cSteps < steps){
+                cSteps = earliestStart;
+                tripDistance = calculateDistance(sx,sy,ex,ey);
+                if(cSteps + tripDistance <= latestFinish && cSteps + tripDistance < steps){
+                    score += tripDistance;
+                    score += bonus;
+                    cSteps += tripDistance;
+                }
+                else if(cSteps + tripDistance > latestFinish && cSteps + tripDistance < steps){
+                    cSteps += tripDistance;
+                }
+            }
+            else if(cSteps >= earliestStart && cSteps < steps){
+               tripDistance = calculateDistance(sx,sy,ex,ey);
+               if(cSteps + tripDistance <= latestFinish && cSteps + tripDistance < steps){
+                   cSteps += tripDistance;
+                   score += tripDistance;
+               }
+               else if(currentSteps + tripDistance > latestFinish && currentSteps + tripDistance < steps){
+                   cSteps += tripDistance;
+               }
+            }
+        }
+        else if(currentX == sx && currentY == sy){
+            if(cSteps <= earliestStart && cSteps < steps){
+               cSteps = earliestStart;
+               tripDistance = calculateDistance(currentX,currentY,ex,ey);
+               if(cSteps + tripDistance <= latestFinish && cSteps + tripDistance < steps){
+                   cSteps += tripDistance;
+                   score += tripDistance;
+                   score += bonus;
+               }
+               else if(cSteps + tripDistance > latestFinish && cSteps + tripDistance < steps){
+                   cSteps += tripDistance;
+               }
+            }
+            else if(cSteps > earliestStart && cSteps < steps){
+                tripDistance = calculateDistance(currentX,currentY,ex,ey);
+                if(cSteps + tripDistance <= latestFinish && cSteps + tripDistance < steps){
+                   cSteps += tripDistance;
+                   score += tripDistance;
+                }
+                else if(cSteps + tripDistance > latestFinish && cSteps + tripDistance < steps){
+                    cSteps += tripDistance;
+                }
+            }
+        }
+        stepsForRide.add(cSteps);
+        return score;
+    }
     
     public void printAllocation()
     {
