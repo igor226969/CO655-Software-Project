@@ -29,12 +29,13 @@ public class WorldAndRides
             bonus = Integer.parseInt(line[4]);
             steps = Integer.parseInt(line[5]);
             
-            rideInformation = new int[rides][7];
+            rideInformation = new int[rides][8];
             
             for(int x = 0; x < rides; x++)
             {
                 line = sc.nextLine().split(" ");
                 rideInformation[x][6] = x;
+                rideInformation[x][7] = 0;
                 //checks the foramat and throws exception
                 if(verify(line)){
                     for(int y = 0; y < 6; y++)

@@ -14,6 +14,8 @@ public class CarAllocation
     {
         rideNumbers = rideNum;
         steps = 0;
+        positionX = 0;
+        positionY = 0;
     }
 
     public ArrayList getRideNumbers()
