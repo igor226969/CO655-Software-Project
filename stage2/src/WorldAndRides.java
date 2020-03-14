@@ -29,13 +29,12 @@ public class WorldAndRides
             bonus = Integer.parseInt(line[4]);
             steps = Integer.parseInt(line[5]);
             
-            rideInformation = new int[rides][8];
+            rideInformation = new int[rides][7];
             
             for(int x = 0; x < rides; x++)
             {
                 line = sc.nextLine().split(" ");
                 rideInformation[x][6] = x;
-                rideInformation[x][7] = rideInformation[x][5] - rideInformation[x][4];
                 //checks the foramat and throws exception
                 if(verify(line)){
                     for(int y = 0; y < 6; y++)
@@ -66,15 +65,15 @@ public class WorldAndRides
     }
 
     private static int partition(int[][] a, int l, int r) {
-        int v = a[r][7];
+        int v = a[r][4];
         int i = l;
         int j = r;
         int[] temp;
         while (i < j){
-            while (a[i][7] < v){
+            while (a[i][4] < v){
                 i = i + 1;
             }
-            while ((i < j) && (a[j][7] >= v)){
+            while ((i < j) && (a[j][4] >= v)){
                 j = j - 1;
             }
             temp = a[i];
