@@ -29,7 +29,7 @@ public class WorldAndRides
             bonus = Integer.parseInt(line[4]);
             steps = Integer.parseInt(line[5]);
             
-            rideInformation = new int[rides][8];
+            rideInformation = new int[rides][7];
             
             for(int x = 0; x < rides; x++)
             {
@@ -46,7 +46,6 @@ public class WorldAndRides
                 else{
                     throw new FileFormatException("X or Y coordinates out of bounds, Invalid file format.");
                 }
-                rideInformation[x][7] = rideInformation[x][0] + rideInformation[x][1];
             }
             sc.close();
             QuickSort(rideInformation,0,rides-1);
@@ -66,15 +65,15 @@ public class WorldAndRides
     }
 
     private static int partition(int[][] a, int l, int r) {
-        int v = a[r][7];
+        int v = a[r][4];
         int i = l;
         int j = r;
         int[] temp;
         while (i < j){
-            while (a[i][7] < v){
+            while (a[i][4] < v){
                 i = i + 1;
             }
-            while ((i < j) && (a[j][7] >= v)){
+            while ((i < j) && (a[j][4] >= v)){
                 j = j - 1;
             }
             temp = a[i];
