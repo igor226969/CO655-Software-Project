@@ -51,7 +51,7 @@ public class Allocation
                     score = calculatePoints(currentX,currentY,sx,sy,ex,ey,earliestStart,latestFinish);
                     highestPoints.add(score);
                 }
-                loop:
+                
                 for(int z = 0; z < closestRides.size(); z++){
                     if(highestPoints.get(getClosestRide()) == 0){
                         closestRides.remove(getClosestRide());
