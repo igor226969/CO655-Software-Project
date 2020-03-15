@@ -10,6 +10,7 @@ import java.io.*;
 public class Allocation    
 {
     private ArrayList<Integer> highestPoints = new ArrayList<Integer>();
+    private ArrayList<Integer> closestRides = new ArrayList<Integer>();
     private ArrayList<Integer> stepsForRide = new ArrayList<Integer>();
     private int[][] rideInformation;
     private ArrayList<CarAllocation> carAllocation = new ArrayList<CarAllocation>();
@@ -40,13 +41,27 @@ public class Allocation
                 int latestFinish = rideInformation[x][5];
                 for(int y = 0; y < vehicles; y++){
                     CarAllocation car = carAllocation.get(y);
-                    currentSteps = car.getSteps();
                     int currentX = car.getX();
                     int currentY = car.getY();
+                    closestRides.add(calculateDistance(currentX,currentY,sx,sy));
+                    // CarAllocation car = carAllocation.get(y);
+                    currentSteps = car.getSteps();
+                    // int currentX = car.getX();
+                    // int currentY = car.getY();
                     score = calculatePoints(currentX,currentY,sx,sy,ex,ey,earliestStart,latestFinish);
                     highestPoints.add(score);
                 }
-                carNumber = getHighestPointRide();
+                loop:
+                for(int z = 0; z < closestRides.size(); z++){
+                    if(highestPoints.get(getClosestRide()) == 0){
+                        closestRides.remove(getClosestRide());
+                        highestPoints.remove(getClosestRide());
+                    }
+                    else{
+                        carNumber = getClosestRide();
+                        break;
+                    }
+                }
                 CarAllocation car = carAllocation.get(carNumber);
                 car.addRideNumber(rideInformation[x][6]);
                 car.setX(ex);
@@ -54,7 +69,7 @@ public class Allocation
                 car.setSteps(stepsForRide.get(carNumber));
                 highestPoints.clear();
                 stepsForRide.clear();
-
+                closestRides.clear();
             }
         }
         catch(Exception ex){
@@ -92,6 +107,19 @@ public class Allocation
             car.setX(ex);
             car.setY(ey);
         }
+    }
+    
+    public int getClosestRide()
+    {
+        int max = closestRides.get(0);
+        int index = 0;
+        for(int i = 0; i < closestRides.size(); i++){
+            if(closestRides.get(i) < max){
+                max = closestRides.get(i);
+                index = i;
+            }
+        }
+        return index;
     }
     
     public int getHighestPointRide()
