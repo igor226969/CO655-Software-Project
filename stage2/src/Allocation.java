@@ -75,6 +75,7 @@ public class Allocation
                 car.setSteps(stepsForRide.get(carNumber));
                 highestPoints.clear();
                 stepsForRide.clear();
+                closestRide.clear();
             }
         }
         catch(Exception ex){
