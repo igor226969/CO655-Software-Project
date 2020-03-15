@@ -115,31 +115,7 @@ public class Allocation
         }
     }
 
-    // public void allocateFirstRide1()
-    // {
-        // for(int x = 0; x < vehicles; x++){
-            // for(int y = 0; y < rides; y++){
-                // int sx = rideInformation[y][0];
-                // int sy = rideInformation[y][1];
-                // int ex = rideInformation[y][2];
-                // int ey = rideInformation[y][3];
-                // int earliestStart = rideInformation[y][4];
-                // int latestFinish = rideInformation[y][5];
-                // int score = calculatePoints(0,0,sx,sy,ex,ey,earliestStart,latestFinish);
-                // highestPoints.add(score);
-            // }
-            // int carNumber = getHighestPointRide();
-            // CarAllocation car = carAllocation.get(carNumber);
-            // car.addRideNumber(rideInformation[x][6]);
-            // car.setX(ex);
-            // car.setY(ey);
-            // car.setSteps(stepsForRide.get(carNumber));
-            // highestPoints.clear();
-            // stepsForRide.clear();
-        // }
-        
-    // }
-    
+
     public int getClosestRide()
     {
         int low = closestRide.get(0);
