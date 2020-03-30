@@ -21,7 +21,7 @@ public class Allocation
     private int currentSteps;
     private int score;
     private int carNumber;
-    private int carNumber2;
+
     public Allocation(String worldAndRides) {
         try{
             WorldAndRides war  = new WorldAndRides(worldAndRides);
