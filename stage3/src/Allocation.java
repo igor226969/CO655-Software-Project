@@ -71,7 +71,7 @@ public class Allocation
                                         car.addRideNumber(z);
                                         car.addRideNumber(z);
                                         takenRides.add(z);
-                                        spaces += 1;
+                                        spaces -= 1;
                                     }
                                 }
                             }
