@@ -10,8 +10,9 @@ import java.io.*;
 public class Allocation    
 {
     private ArrayList<Integer> highestPoints = new ArrayList<Integer>();
-    private ArrayList<Integer> closestRides = new ArrayList<Integer>();
+    private ArrayList<Integer> nearbyRides = new ArrayList<Integer>();
     private ArrayList<Integer> stepsForRide = new ArrayList<Integer>();
+    private ArrayList<Integer> takenRides = new ArrayList<Integer>();
     private int[][] rideInformation;
     private ArrayList<CarAllocation> carAllocation = new ArrayList<CarAllocation>();
     private int vehicles;
@@ -31,62 +32,52 @@ public class Allocation
             rideInformation = war.getRideInfo();
             rides = war.getRides();
             ArrayList<Integer> rideNumbers = new ArrayList<Integer>();
-            boolean noHurry = false;
             allocateFirstRide();
             for(int x = vehicles; x < rides; x++){
-                int sx = rideInformation[x][0];
-                int sy = rideInformation[x][1];
-                int ex = rideInformation[x][2];
-                int ey = rideInformation[x][3];
-                int earliestStart = rideInformation[x][4];
-                int latestFinish = rideInformation[x][5];
-                for(int y = 0; y < vehicles; y++){
-                    CarAllocation car = carAllocation.get(y);
-                    int currentX = car.getX();
-                    int currentY = car.getY();
-                    closestRides.add(calculateDistance(currentX,currentY,sx,sy));
-                    // CarAllocation car = carAllocation.get(y);
-                    currentSteps = car.getSteps();
-                    // int currentX = car.getX();
-                    // int currentY = car.getY();
-                    score = calculatePoints(currentX,currentY,sx,sy,ex,ey,earliestStart,latestFinish);
-                    highestPoints.add(score);
-                    if(earliestStart == 0 && latestFinish == steps){
-                        noHurry = true;
-                    }
-                    else{
-                        noHurry = false;
-                    }
-                }
-                if(noHurry){
-                    for(int z = 0; z < closestRides.size(); z++){
-                        if(highestPoints.get(getClosestRide()) == 0){
-                            closestRides.remove(getClosestRide());
-                            highestPoints.remove(getClosestRide());
-                        }
-                        else{
-                            carNumber = getClosestRide();
-                            break;
-                        }
-                    }
-                    CarAllocation car = carAllocation.get(carNumber);
-                    car.addRideNumber(rideInformation[x][6]);
-                    car.setX(ex);
-                    car.setY(ey);
-                    car.setSteps(stepsForRide.get(carNumber));
-                    highestPoints.clear();
-                    stepsForRide.clear();
-                    closestRides.clear();
+                if(takenRides.contains(x)){
+                    //rideTaken
                 }
                 else{
+                    int sx = rideInformation[x][0];
+                    int sy = rideInformation[x][1];
+                    int ex = rideInformation[x][2];
+                    int ey = rideInformation[x][3];
+                    int earliestStart = rideInformation[x][4];
+                    int latestFinish = rideInformation[x][5];
+                    for(int y = 0; y < vehicles; y++){
+                        CarAllocation car = carAllocation.get(y);
+                        int currentX = car.getX();
+                        int currentY = car.getY();
+                        currentSteps = car.getSteps();
+                        score = calculatePoints(currentX,currentY,sx,sy,ex,ey,earliestStart,latestFinish);
+                        highestPoints.add(score);
+                    }
                     carNumber = getHighestPointRide();
                     CarAllocation car = carAllocation.get(carNumber);
                     car.addRideNumber(rideInformation[x][6]);
+                    takenRides.add(rideInformation[x][6]);
+                    getRidesNearby(sx,sy,ex,ey);
                     car.setX(ex);
                     car.setY(ey);
                     car.setSteps(stepsForRide.get(carNumber));
                     highestPoints.clear();
                     stepsForRide.clear();
+                    int spaces = 3;
+                    for(int z: nearbyRides){
+                        if(spaces > 0){
+                            for(int j = vehicles; j < rides; j++){
+                                if(rideInformation[j][6] == z){
+                                    if(rideInformation[j][5] <= latestFinish && rideInformation[j][5] > earliestStart){
+                                        car.addRideNumber(z);
+                                        car.addRideNumber(z);
+                                        takenRides.add(z);
+                                        spaces += 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    car.addRideNumber(rideInformation[x][6]);
                 }
             }
         }
@@ -99,6 +90,7 @@ public class Allocation
     {
         for(int x = 0; x < vehicles; x++){
             ArrayList<Integer> rideNumbers = new ArrayList<Integer>();
+            rideNumbers.add(rideInformation[x][6]);
             rideNumbers.add(rideInformation[x][6]);
             int sx = rideInformation[x][0];
             int sy = rideInformation[x][1];
@@ -122,24 +114,30 @@ public class Allocation
                     car.setSteps(steps1 + calculateDistance(sx,sy,ex,ey));
                 }
             }
+            takenRides.add(rideInformation[x][6]);
             car.setX(ex);
             car.setY(ey);
         }
     }
     
-    public int getClosestRide()
+    public void getRidesNearby(int sx1,int sy1,int ex1,int ey1)
     {
-        int max = closestRides.get(0);
-        int index = 0;
-        for(int i = 0; i < closestRides.size(); i++){
-            if(closestRides.get(i) < max){
-                max = closestRides.get(i);
-                index = i;
+        for(int x = vehicles; x < rides; x++){
+            if(takenRides.contains(x)){
+                //ride taken
+            }
+            else{
+                int sx = rideInformation[x][0];
+                int sy = rideInformation[x][1];
+                int ex = rideInformation[x][2];
+                int ey = rideInformation[x][3];
+                if(sx >= sx1 && sy >= sy1 && ex <= ex1 && ey <= ey1){
+                    nearbyRides.add(x);
+                }
             }
         }
-        return index;
     }
-    
+
     public int getHighestPointRide()
     {
         int max = 0;

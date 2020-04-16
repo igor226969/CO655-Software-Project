@@ -63,9 +63,17 @@ public class CarAllocation
     
     public void printRideNumbers()
     {
-        System.out.print(rideNumbers.size()+" ");
+        ArrayList<Integer> pickUp = new ArrayList<Integer>();
+        System.out.print((rideNumbers.size())/2+" ");
         for(int no: rideNumbers){
-            System.out.print(no + " ");
+            
+            if(pickUp.contains(no)){
+                System.out.print("d"+no + " ");
+            }
+            else{
+                System.out.print("p"+no + " ");
+                pickUp.add(no);
+            }
         }
     }
 }
