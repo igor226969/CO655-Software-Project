@@ -57,6 +57,7 @@ public class Allocation
                         for(int z = x + 1; z < x + 3; z++){
                             car.addRideNumber((rideInformation[z][6]));
                             car.addRideNumber((rideInformation[z][6]));
+                            car.addRides();
                         }
                         car.addRideNumber(rideInformation[x][6]);
                         x += 3;
