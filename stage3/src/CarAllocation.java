@@ -60,11 +60,23 @@ public class CarAllocation
     {
         rideNumbers.add(i);
     }
+    public int calculateNumberOfRides()
+    {
+        Stack<Integer> stack = new Stack<Integer>();
+        int numberOfRides = 0;
+        for(int x = 0; x < rideNumbers.size(); x++){
+            if(stack.isEmpty()){
+                stack.push(rideNumbers.get(x));
+                numberOfRides += 1;
+            }
+        }
+        return numberOfRides;
+    }
     
     public void printRideNumbers()
     {
         ArrayList<Integer> pickUp = new ArrayList<Integer>();
-        System.out.print((rideNumbers.size())/2+" ");
+        System.out.print(calculateNumberOfRides()+ " ");
         for(int no: rideNumbers){
             
             if(pickUp.contains(no)){
