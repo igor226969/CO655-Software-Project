@@ -73,10 +73,10 @@ public class CarAllocation
         for(int no: rideNumbers){
             
             if(pickUp.contains(no)){
-                System.out.print("d"+no + " ");
+                System.out.print(" "+no + "d");
             }
             else{
-                System.out.print("p"+no + " ");
+                System.out.print(" "+no + "p");
                 pickUp.add(no);
             }
         }
