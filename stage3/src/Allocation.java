@@ -54,7 +54,7 @@ public class Allocation
                     car.addRideNumber(rideInformation[x][6]);
                     car.addRides();
                     if(x < rides - 3){
-                        for(int z = x + 1; z < x + 4; z++){
+                        for(int z = x + 1; z < x + 3; z++){
                             car.addRideNumber((rideInformation[z][6]));
                             car.addRideNumber((rideInformation[z][6]));
                             car.addRides();
@@ -212,67 +212,6 @@ public class Allocation
        stepsForRide.add(cSteps);
        return score;
     }
-    // public int calculatePoints(int currentX,int currentY, int sx, int sy,int ex,int ey,int earliestStart,int latestFinish)
-    // {
-        // int cSteps = currentSteps;
-        // int score = 0;
-        // int tripDistance = 0;
-        // int distanceToStart = 0;
-        // if(currentX != sx || currentY != sy){
-            // distanceToStart = calculateDistance(currentX,currentY,sx,sy);
-            // currentX = sx;
-            // currentY = sy;
-            // cSteps = distanceToStart;
-            // if(cSteps <= earliestStart && cSteps < steps){
-                // cSteps = earliestStart;
-                // tripDistance = calculateDistance(sx,sy,ex,ey);
-                // if(cSteps + tripDistance <= latestFinish && cSteps + tripDistance < steps){
-                    // score += tripDistance;
-                    // score += bonus;
-                    // cSteps += tripDistance;
-                // }
-                // else if(cSteps + tripDistance > latestFinish && cSteps + tripDistance < steps){
-                    // cSteps += tripDistance;
-                // }
-            // }
-            // else if(cSteps >= earliestStart && cSteps < steps){
-               // tripDistance = calculateDistance(sx,sy,ex,ey);
-               // if(cSteps + tripDistance <= latestFinish && cSteps + tripDistance < steps){
-                   // cSteps += tripDistance;
-                   // score += tripDistance;
-               // }
-               // else if(currentSteps + tripDistance > latestFinish && currentSteps + tripDistance < steps){
-                   // cSteps += tripDistance;
-               // }
-            // }
-        // }
-        // else if(currentX == sx && currentY == sy){
-            // if(cSteps <= earliestStart && cSteps < steps){
-               // cSteps = earliestStart;
-               // tripDistance = calculateDistance(currentX,currentY,ex,ey);
-               // if(cSteps + tripDistance <= latestFinish && cSteps + tripDistance < steps){
-                   // cSteps += tripDistance;
-                   // score += tripDistance;
-                   // score += bonus;
-               // }
-               // else if(cSteps + tripDistance > latestFinish && cSteps + tripDistance < steps){
-                   // cSteps += tripDistance;
-               // }
-            // }
-            // else if(cSteps > earliestStart && cSteps < steps){
-                // tripDistance = calculateDistance(currentX,currentY,ex,ey);
-                // if(cSteps + tripDistance <= latestFinish && cSteps + tripDistance < steps){
-                   // cSteps += tripDistance;
-                   // score += tripDistance;
-                // }
-                // else if(cSteps + tripDistance > latestFinish && cSteps + tripDistance < steps){
-                    // cSteps += tripDistance;
-                // }
-            // }
-        // }
-        // stepsForRide.add(cSteps);
-        // return score;
-    // }
     
     public void printAllocation()
     {
