@@ -66,15 +66,15 @@ public class WorldAndRides
     }
 
     private static int partition(int[][] a, int l, int r) {
-        int v = a[r][4];
+        int v = a[r][5];
         int i = l;
         int j = r;
         int[] temp;
         while (i < j){
-            while (a[i][4] < v){
+            while (a[i][5] < v){
                 i = i + 1;
             }
-            while ((i < j) && (a[j][4] >= v)){
+            while ((i < j) && (a[j][5] >= v)){
                 j = j - 1;
             }
             temp = a[i];
