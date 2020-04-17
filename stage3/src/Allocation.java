@@ -54,7 +54,7 @@ public class Allocation
                     car.addRideNumber(rideInformation[x][6]);
                     car.addRides();
                     if(x < rides - 3){
-                        for(int z = x + 1; z < x + 3; z++){
+                        for(int z = x + 1; z < x + 4; z++){
                             car.addRideNumber((rideInformation[z][6]));
                             car.addRideNumber((rideInformation[z][6]));
                             car.addRides();
