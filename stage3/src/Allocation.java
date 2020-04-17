@@ -52,6 +52,7 @@ public class Allocation
                     car.setX(ex);
                     car.setY(ey);
                     car.addRideNumber(rideInformation[x][6]);
+                    car.addRides();
                     if(x < rides - 3){
                         for(int z = x + 1; z < x + 3; z++){
                             car.addRideNumber((rideInformation[z][6]));
@@ -86,6 +87,7 @@ public class Allocation
             int steps1 = 0;
             carAllocation.add(new CarAllocation(rideNumbers));
             CarAllocation car = carAllocation.get(x);
+            car.addRides();
             if(sx == 0 && sy == 0){
                 car.setSteps(calculateDistance(0,0,ex,ey));
             }

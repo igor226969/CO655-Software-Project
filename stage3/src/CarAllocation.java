@@ -6,6 +6,7 @@ public class CarAllocation
     public int positionX;
     public int positionY;
     public int steps;
+    public int rides;
     
     /**
      * Constructor for objects of class CarAllocation
@@ -14,13 +15,17 @@ public class CarAllocation
     {
         rideNumbers = rideNum;
         steps = 0;
+        rides = 0;
     }
 
     public ArrayList getRideNumbers()
     {
         return rideNumbers;
     }
-    
+    public void addRides()
+    {
+        rides += 1;
+    }
     public void delete()
     {
         rideNumbers.remove(rideNumbers.size() - 1);
@@ -60,23 +65,11 @@ public class CarAllocation
     {
         rideNumbers.add(i);
     }
-    public int calculateNumberOfRides()
-    {
-        Stack<Integer> stack = new Stack<Integer>();
-        int numberOfRides = 0;
-        for(int x = 0; x < rideNumbers.size(); x++){
-            if(stack.isEmpty()){
-                stack.push(rideNumbers.get(x));
-                numberOfRides += 1;
-            }
-        }
-        return numberOfRides;
-    }
     
     public void printRideNumbers()
     {
         ArrayList<Integer> pickUp = new ArrayList<Integer>();
-        System.out.print(calculateNumberOfRides()+ " ");
+        System.out.print(rides+ " ");
         for(int no: rideNumbers){
             
             if(pickUp.contains(no)){
