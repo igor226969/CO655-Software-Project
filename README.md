@@ -1,3 +1,3 @@
 # co566
 
-Igor Drobnica Software Project
+Google Hashcode 2018(adapted by Uni) Solutions 
